@@ -2,13 +2,15 @@ var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    expressSanitizer = require('express-sanitizer');
 
 mongoose.connect('mongodb://localhost/blogapp');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
+app.use(expressSanitizer());
 
 var blogSchema = new mongoose.Schema({
     title: String,
@@ -40,6 +42,7 @@ app.get('/blogs/new', function(request, response) {
 });
 
 app.post('/blogs', function(request, response) {
+    request.body.blog.body = request.sanitize(request.body.blog.body);
     Blog.create(request.body.blog, function(err, newPost) {
         if (err) {
             console.log(err);
@@ -70,6 +73,7 @@ app.get('/blogs/:id/edit', function(request, response) {
 });
 
 app.put('/blogs/:id', function(request, response) {
+    request.body.blog.body = request.sanitize(request.body.blog.body);
     Blog.findByIdAndUpdate(request.params.id, request.body.blog,
         function(err, updatedPost) {
             if (err) {
