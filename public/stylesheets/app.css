@@ -4,4 +4,8 @@ i.keyboard.icon {
 .container.main,
 .container.piled.segment {
   margin-top: 7em;
+  margin-bottom: 3em;
+}
+#single-post {
+  margin-bottom: 3em;
 }
