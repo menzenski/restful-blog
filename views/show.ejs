@@ -1,0 +1,15 @@
+<% include partials/head %>
+
+<div class="ui main text container segment">
+  <h1 class="ui huge header"><%= blog.title %></h1><!-- /.ui .huge .header -->
+
+  <div class="ui rounded medium image">
+    <img src="<%= blog.image %>">
+  </div><!-- /.ui .medium .image -->
+
+  <h5 class="ui top attached header"><%= blog.created.toDateString() %></h5>
+  <div class="ui attached segment"><%= blog.body %></div>
+
+</div><!-- /.ui .main .text .container .segment -->
+
+<% include partials/foot %>

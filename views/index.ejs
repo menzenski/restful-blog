@@ -1,0 +1,34 @@
+<% include partials/head %>
+
+<div class="ui main text container">
+
+  <h1>Index page</h1>
+
+  <% blogs.forEach(function(blog) { %>
+    <div class="ui text segment">
+      <h2><%= blog.title %></h2>
+      <div class="ui rounded medium image">
+        <img src="<%= blog.image %>">
+      </div><!-- /.ui .medium .image -->
+      <h5 class="ui top attached header">
+          <%= blog.created.toDateString() %>
+      </h5><!-- /.ui .top .attached .header -->
+      <div class="ui attached segment">
+        <p>
+          <% if (blog.body.length > 200) { %>
+            <%= blog.body.substring(0, 200) %>...
+          <% } else { %>
+            <%= blog.body %>
+          <% } %>
+        </p>
+        <a class="ui right labeled icon button" href="/blogs/<%= blog._id %>">
+          <i class="right arrow icon"></i>
+          Read more
+        </a>
+      </div><!-- /.ui .attached .segment -->
+    </div><!-- /.ui .text .segment -->
+  <% }); %>
+
+</div><!-- /.ui .main .text .container .segment -->
+
+<% include partials/foot %>

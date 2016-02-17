@@ -1,0 +1,10 @@
+i.icon {
+  font-size: 2em;
+}
+i.right.arrow.icon {
+  font-size: 1em;
+}
+.container.main,
+.container.piled.segment {
+  margin-top: 7em;
+}
