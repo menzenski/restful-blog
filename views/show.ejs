@@ -10,6 +10,27 @@
   <h5 class="ui top attached header"><%= blog.created.toDateString() %></h5>
   <div class="ui attached segment"><%= blog.body %></div>
 
+  <div class="ui secondary segment">
+    <form class="ui form" action="/blogs/<%= blog._id %>?_method=DELETE"
+        method="POST">
+      <div class="fields">
+        <div class="field">
+          <a class="ui right labeled icon orange button"
+            href="/blogs/<%= blog._id %>/edit">
+            <i class="edit icon"></i>
+            Edit post
+          </a>
+        </div><!-- /.field -->
+        <div class="field">
+          <button class="ui right labeled icon red button" type="submit">
+            <i class="remove icon"></i>
+            Delete post
+          </button>
+        </div><!-- /.field -->
+      </div><!-- /.fields -->
+    </form><!-- /.ui .form -->
+  </div><!-- /.ui .secondary.segment -->
+
 </div><!-- /.ui .main .text .container .segment -->
 
 <% include partials/foot %>

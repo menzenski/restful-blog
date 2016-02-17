@@ -1,12 +1,14 @@
 var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override');
 
 mongoose.connect('mongodb://localhost/blogapp');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 var blogSchema = new mongoose.Schema({
     title: String,
@@ -53,6 +55,37 @@ app.get('/blogs/:id', function(request, response) {
             console.log(err);
         } else {
             response.render('show', {blog: foundPost});
+        }
+    });
+});
+
+app.get('/blogs/:id/edit', function(request, response) {
+    Blog.findById(request.params.id, function(err, foundPost) {
+        if (err) {
+            console.log(err);
+        } else {
+            response.render('edit', {blog: foundPost});
+        }
+    });
+});
+
+app.put('/blogs/:id', function(request, response) {
+    Blog.findByIdAndUpdate(request.params.id, request.body.blog,
+        function(err, updatedPost) {
+            if (err) {
+                console.log(err);
+            } else {
+                response.redirect('/blogs/' + request.params.id);
+            }
+        });
+});
+
+app.delete('/blogs/:id', function(request, response) {
+    Blog.findByIdAndRemove(request.params.id, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            response.redirect('/blogs');
         }
     });
 });
